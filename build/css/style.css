@@ -24,8 +24,12 @@ body
 .container {
     display: grid;
     height: 100%;
-    grid-template-rows: 75px 1fr 60px;
+    grid-template-rows: 85px 1fr 70px;
     grid-template-columns: 1fr;
+}
+
+button {
+    cursor: pointer;
 }
 
 #reload-btn {
@@ -164,6 +168,18 @@ header, footer {
     font-size: 3em;
 }
 
+.color-hex-data {
+    opacity: 0.6;
+    transition: opacity 300ms;
+    cursor: pointer;
+}
+.color-hex-data:hover {
+    opacity:0.8;
+}
+.color-hex-data:active {
+    opacity:0.4;
+}
+
 /* MOBILE */
 @media screen and (max-width: 750px) {
     main {
@@ -183,5 +199,10 @@ header, footer {
         flex-direction: row;
         justify-self: start;
         padding:0;
+    }
+    footer {
+        font-size: 0.8em;
+        padding:10px;
+        border:2px solid;
     }
 }

@@ -4,14 +4,18 @@ let colors:Color[] = [];
 const uiColors = document.getElementsByClassName("color-container");
 const uiData = document.getElementsByClassName("color-data")
 document.body.onload = async () => {colors = await loadColors(uiColors.length); setupColors(); setupUIButtonsFunctionality();};
-document.getElementById("reload-btn")!.onclick = async ()=>{await updateColors(); setupColors(); setupUIButtonsFunctionality();};
-
+const reloadBtn = document.getElementById("reload-btn") as HTMLButtonElement;
+reloadBtn.onclick = async ()=>{await updateColors(); setupColors(); setupUIButtonsFunctionality();};
+document.addEventListener("keydown", (e)=>{if (e.key == " "){reloadBtn.click()}})
 const setupUIButtonsFunctionality = async () => {
     let copyEls = document.getElementsByClassName("copy");
+    let otherCopyEls = document.getElementsByClassName("color-hex-data");
     for (let el = 0; el < copyEls.length; el++) {
         let elM = copyEls[el] as HTMLButtonElement;
+        let elO = otherCopyEls[el] as HTMLButtonElement;
         let elC = colors[el] as Color;
         elM.onclick = ()=>copy(elC.hex);
+        elO.onclick = ()=>copy(elC.hex);
     }
 
     let blockEls = document.getElementsByClassName("block");
@@ -46,12 +50,24 @@ const setupUIButtonsFunctionality = async () => {
             if (!elC.blocked)
             {
             let firstIndex:number = colors.indexOf(elC);
+
             let index:number = colors.indexOf(elC);
             index = Math.max(index - 1, 0);
             let shiftedColor:Color = colors[index] as Color;
-            if (shiftedColor.blocked) {
+            let mustEscape:boolean = false;
+
+            while (shiftedColor.blocked) {
+                index = Math.max(index - 1, 0);
+                shiftedColor = colors[index] as Color;
+                if (index == 0 && shiftedColor.blocked) {
+                    mustEscape = true;
+                    break;
+                }
+            }
+            if (mustEscape) {
                 return;
             }
+
             colors[index] = elC;
             colors[firstIndex] = shiftedColor;
             Save("Palette", colors); 
@@ -67,7 +83,17 @@ const setupUIButtonsFunctionality = async () => {
             let index:number = colors.indexOf(elC);
             index = Math.min(index + 1, colors.length - 1);
             let shiftedColor:Color = colors[index] as Color;
-            if (shiftedColor.blocked) {
+            let mustEscape:boolean = false;
+
+            while (shiftedColor.blocked) {
+                index = Math.min(index + 1, colors.length - 1);
+                shiftedColor = colors[index] as Color;
+                if ((index == colors.length - 1) && shiftedColor.blocked) {
+                    mustEscape = true;
+                    break;
+                }
+            }
+            if (mustEscape) {
                 return;
             }
             colors[index] = elC;
