@@ -1,12 +1,19 @@
 import {Color, loadColors} from "./Color.js";
-import { copy, Save, Load } from "./Saving.js";
+import { copy, Save, Load, Delete } from "./Saving.js";
 let colors:Color[] = [];
 const uiColors = document.getElementsByClassName("color-container");
 const uiData = document.getElementsByClassName("color-data")
-document.body.onload = async () => {colors = await loadColors(uiColors.length); setupColors(); setupUIButtonsFunctionality();};
+document.body.onload = async () => {checkSavedData(); colors = await loadColors(uiColors.length); setupColors(); setupUIButtonsFunctionality();};
 const reloadBtn = document.getElementById("reload-btn") as HTMLButtonElement;
 reloadBtn.onclick = async ()=>{await updateColors(); setupColors(); setupUIButtonsFunctionality();};
 document.addEventListener("keydown", (e)=>{if (e.key == " "){reloadBtn.click()}})
+const checkSavedData = () => {
+    let data:Color[] = Load("Palette") as Color[];
+    if (data.length != uiColors.length) 
+    {
+        Delete("Palette");
+    }
+}
 const setupUIButtonsFunctionality = async () => {
     let copyEls = document.getElementsByClassName("copy");
     let otherCopyEls = document.getElementsByClassName("color-hex-data");
@@ -105,7 +112,7 @@ const setupUIButtonsFunctionality = async () => {
         }
     }
 
-const setupColors = ():void => {
+const setupColors = () => {
     for (let i = 0; i < uiColors.length; i++) {
         const element = uiColors[i] as HTMLDivElement;
         const colorElement:Color = colors[i] as Color;

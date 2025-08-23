@@ -10,3 +10,7 @@ export const Load = (key:string):Object => {
 export const copy = async (text:string) => {
     await window.navigator.clipboard.writeText(text);
 }
+
+export const Delete = async (key:string) => {
+    await window.localStorage.removeItem("Palette");
+}

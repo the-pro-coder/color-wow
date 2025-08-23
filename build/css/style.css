@@ -24,7 +24,8 @@ body
 .container {
     display: grid;
     height: 100%;
-    grid-template-rows: 85px 1fr 70px;
+    grid-template-rows: 85px 1fr;
+    /* 70px; */
     grid-template-columns: 1fr;
 }
 
@@ -86,15 +87,15 @@ main {
     width: 100%;
 }
 
-footer {
-    background-color: var(--footer-col);
-}
-
 header, footer {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 15px;
+}
+footer {
+    background-color: var(--footer-col);
+    display: none;
 }
 
 .color-container {
@@ -103,6 +104,14 @@ header, footer {
     flex-direction: column;
     background-color: #fff;
     transition: 300ms background-color;
+}
+
+.color-buttons {
+    visibility: hidden;
+}
+
+.color-container:hover .color-buttons {
+    visibility:visible;
 }
 
 .color-buttons, .color-data {
@@ -169,15 +178,21 @@ header, footer {
 }
 
 .color-hex-data {
-    opacity: 0.6;
-    transition: opacity 300ms;
+    background-color: transparent;
+    padding: 7px;
+    border-radius: 5px;
+    transition: background-color 300ms;
     cursor: pointer;
 }
+.color-hex-data, .color-name-data {
+    text-shadow: 1px 0 #fff, -1px 0 #fff, 0 1px #fff, 0 -1px #fff,
+             1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+}
 .color-hex-data:hover {
-    opacity:0.8;
+    background-color: #0003;
 }
 .color-hex-data:active {
-    opacity:0.4;
+    background-color: #0006;
 }
 
 /* MOBILE */
