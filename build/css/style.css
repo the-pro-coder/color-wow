@@ -1,5 +1,5 @@
 * {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family:'Inter', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin:0;
     padding:0;
     box-sizing: border-box;
@@ -150,7 +150,7 @@ footer {
     background-color:transparent;
     outline:none;
     border: none;
-    font-size: 1.3em;
+    font-size: 1.6em;
     opacity: 0.5;
     flex:1;
     transition: opacity 150ms;
@@ -191,9 +191,26 @@ footer {
     transition: background-color 300ms;
     cursor: pointer;
 }
+
+@keyframes lightglow {
+    0% {
+        color:#000;
+    }
+    12.5% {
+        color:#fff;
+    }
+    50% {
+        color: #fff;
+    }
+    62.5% {
+        color:#000;
+    }
+    100% {
+        color: #000;
+    }
+}
 .color-hex-data, .color-name-data {
-    text-shadow: 1px 0 #fff, -1px 0 #fff, 0 1px #fff, 0 -1px #fff,
-             1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    animation: lightglow 5s ease-in-out infinite;
 }
 .color-hex-data:hover {
     background-color: #0003;
@@ -216,6 +233,15 @@ footer {
         flex-direction: row;
         padding:0;
         gap: 10px;
+    }
+    .color-btn {
+        font-size: 1em;
+    }
+    .block {
+        font-size: 2em;
+    }
+    .shift-buttons {
+        transform: rotateZ(90deg);
     }
     .color-data {
         flex-direction: row;
