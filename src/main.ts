@@ -3,10 +3,15 @@ import { copy, Save, Load, Delete } from "./Saving.js";
 let colors:Color[] = [];
 const uiColors = document.getElementsByClassName("color-container");
 const uiData = document.getElementsByClassName("color-data")
-document.body.onload = async () => {checkSavedData(); colors = await loadColors(uiColors.length); setupColors(); setupUIButtonsFunctionality();};
+document.body.onload = async () => {checkConnection();checkSavedData(); colors = await loadColors(uiColors.length); setupColors(); setupUIButtonsFunctionality();};
 const reloadBtn = document.getElementById("reload-btn") as HTMLButtonElement;
 reloadBtn.onclick = async ()=>{await updateColors(); setupColors(); setupUIButtonsFunctionality();};
 document.addEventListener("keydown", (e)=>{if (e.key == " "){reloadBtn.click()}})
+const checkConnection = () => {
+    while (!window.navigator.onLine) {
+        alert("No Internet Connection! Check your internet connection, close this page and try again...");
+    }
+}
 const checkSavedData = () => {
     let data:Color[] = Load("Palette") as Color[];
     if (data.length != uiColors.length) 

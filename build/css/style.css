@@ -133,6 +133,7 @@ footer {
 .blocked::after {
     content:'🔒'
 }
+
 .unblocked::after {
     content:'🔓'
 }
@@ -170,6 +171,12 @@ footer {
 .color-btn:active {
     opacity: 1;
 }
+
+.blocked {
+    visibility: visible;
+    opacity: 1;
+}
+
 .boldy {
     font-weight: bold;
 }
